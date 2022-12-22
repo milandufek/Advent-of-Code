@@ -1,4 +1,5 @@
 import re
+from collections import deque
 from typing import List
 from utils import get_data
 
@@ -8,11 +9,11 @@ from utils import get_data
 
 class MonkeyMap:
 
-    def __init__(self, input_file: str, start: tuple) -> None:
+    def __init__(self, input_file: str) -> None:
         self.input_file = input_file
-        self.space: List[list] = []
+        self.space: List[str] = []
         self.moves: list = []
-        self.current_xy = start
+        self.current_xy = None
         self.direction = '>'
 
     def parse_input(self) -> None:
@@ -120,47 +121,50 @@ class MonkeyMap:
         self.current_xy = (x, y)
 
     def show_password(self) -> None:
-        scores = {'>': 0, 'v': 1, '<': 2, '^': 3,}
+        score = {'>': 0, 'v': 1, '<': 2, '^': 3,}
         col, row = self.current_xy
-        s = 1000 * (row + 1)  + 4 * (col + 1) + scores[self.direction]
+        s = 1000 * (row + 1)  + 4 * (col + 1) + score[self.direction]
 
         print(f'Score #1 ({self.input_file}): {s}')
 
-    def rotate(self, side: str):
-        d = ['>', 'v', '<', '^']
-        if side == 'R':
-            if d.index(self.direction) == 3:
-                self.direction = d[0]
-            else:
-                self.direction = d[d.index(self.direction) + 1]
-        elif side == 'L':
-            if d.index(self.direction) == 0:
-                self.direction = d[-1]
-            else:
-                self.direction = d[d.index(self.direction) - 1]
+    def rotate(self, side: str) -> None:
+        d = deque(['>', 'v', '<', '^'])
+        current = d.index(self.direction)
 
-    def main(self):
+        if side == 'R':
+            d.rotate(len(d) - 1)
+        elif side == 'L':
+            d.rotate()
+        else:
+            raise NotImplementedError(f"Rotation not implemented for '{side}'")
+
+        self.direction = d[current]
+
+    def main(self) -> None:
         self.parse_input()
-        for i in self.moves:
-            if isinstance(i, str):
-                self.rotate(i)
+        self.current_xy = (self.space[0].index('.'), 0)
+
+        for m in self.moves:
+
+            if isinstance(m, str):
+                self.rotate(m)
                 continue
 
             match self.direction:
                 case '>':
-                    self.move_right(i)
+                    self.move_right(m)
                 case '<':
-                    self.move_left(i)
+                    self.move_left(m)
                 case 'v':
-                    self.move_down(i)
+                    self.move_down(m)
                 case '^':
-                    self.move_up(i)
+                    self.move_up(m)
 
         self.show_password()
 
 
 if __name__ == '__main__':
-    mme = MonkeyMap('inputs/22_example.in', start=(8, 0))
+    mme = MonkeyMap('inputs/22_example.in')
     mme.main()
-    mm = MonkeyMap('inputs/22.in', start=(49, 0))
+    mm = MonkeyMap('inputs/22.in')
     mm.main()

@@ -1,21 +1,26 @@
 #!/bin/bash
 
 DAY="$(date +%d)"
-
-[ ! -d "inputs" ] && mkdir -p inputs
-
+YEAR="$(date +%Y)"
 F_INPUT="inputs/${DAY}.in"
-[ ! -f $F_INPUT ] && >$F_INPUT
-
 F_INPUT_EXAMPLE="inputs/${DAY}_example.in"
-[ ! -f $F_INPUT_EXAMPLE ] && >$F_INPUT_EXAMPLE
-
-
-
 FILE_CODE="${DAY}_.py"
+URL_INPUT="https://adventofcode.com/${YEAR}/day/${DAY}/input"
+
+
+if [ ! -d "inputs" ]; then
+    mkdir -p inputs
+fi
+
+if [ ! -f $F_INPUT ]; then
+    curl -s --cookie "session=$(cat .aoc_session)" $URL_INPUT > $F_INPUT
+fi
+
+if [ ! -f $F_INPUT_EXAMPLE ]; then
+    >$F_INPUT_EXAMPLE
+fi
 
 if [ ! -f $FILE_CODE ]; then
-
     cat > $FILE_CODE <<EOF
 from utils import get_data
 

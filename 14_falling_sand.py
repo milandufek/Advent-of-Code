@@ -132,7 +132,7 @@ class DustSimulator:
 
         return True
 
-    def space_to_image(self, name: str = None) -> None:
+    def space_to_image(self, name: str = '') -> None:
         if self.iteration % 3 != 0:
             return
 

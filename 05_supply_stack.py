@@ -21,7 +21,7 @@ STACKS = {
 }
 
 
-def cargo(stacks: list, moves: list, move_in_order=True) -> str:
+def cargo(stacks: dict, moves: list, move_in_order=True) -> str:
     for line in moves:
         # e.g.: 'move 3 from 4 to 6'
         _, count, _, source, _, target = tuple(line.split(' '))

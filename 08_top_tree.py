@@ -22,7 +22,7 @@ class Tree:
     def get_row(self) -> str:
         return self.forest[self.y]
 
-    def get_column(self) -> str:
+    def get_column(self) -> list:
         column = []
         for row in self.forest:
             column.append(row[self.x])

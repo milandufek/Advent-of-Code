@@ -3,7 +3,7 @@ from utils import get_data
 
 # https://adventofcode.com/2022/day/4
 
-def cleanup(data: list) -> int:
+def cleanup(data: list) -> tuple[int, int]:
     count_subsets = 0
     count_intersection = 0
 

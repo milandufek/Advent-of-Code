@@ -1,10 +1,8 @@
-import time
-from math import floor
 from typing import List, Tuple, Generator
-from utils import get_data
 
 
 # https://adventofcode.com/2022/day/11
+
 
 class Parser:
 
@@ -16,7 +14,7 @@ class Parser:
             return f.read().split('\n\n')
 
     def get_last_int(self, line: str) -> int:
-            return int(line.split()[-1].strip())
+        return int(line.split()[-1].strip())
 
     def generate_monkeys(self):
         monkeys = []
@@ -49,8 +47,9 @@ class Parser:
 
 class Monkey:
 
-    def __init__(self, name: int, items: list, operation_type: str, operation_num: str,
-                 test_div: int, true_target: int, false_target: int, common_divider: int = 1) -> None:
+    def __init__(self, name: int, items: list, operation_type: str,
+                 operation_num: str, test_div: int, true_target: int,
+                 false_target: int, common_divider: int = 1) -> None:
         self.name = name
         self.items = items
         self.operator = operation_type
@@ -73,25 +72,30 @@ class Monkey:
         if self.operand == 'old':
             operand: int = item
         else:
-            operand: int = int(f"Operand '{self.operand}' not implemented")
+            operand: int = int(self.operand)
 
         if self.operator == '*':
             item *= operand
         elif self.operator == '+':
             item += operand
         else:
-            raise NotImplemented(self.operator)
+            raise NotImplementedError(self.operator)
+
         return item
 
     def divide_by_three(self, number: int) -> int:
-        # return floor(number / 3)  # part 1
-        return number % self.common_divider
+        # return int(number / 3)  # part 1
+        return number % self.common_divider  # part 2
 
     def test_divisible(self, number: int) -> bool:
         return number % self.test_div == 0
 
     def throw_item(self, item: int) -> Tuple[int, ...]:
-        monkey: int = self.true_target if self.test_divisible(item) else self.false_target
+        if self.test_divisible(item):
+            monkey: int = self.true_target
+        else:
+            monkey: int = self.false_target
+
         return monkey, item
 
     def receive_item(self, item: int) -> None:
@@ -106,15 +110,12 @@ class MonkeyBusiness:
         self.rounds = 0
 
     def round(self) -> None:
-        # start_time = time.perf_counter()
         self.rounds += 1
         for playing_monkey in self.monkeys:
             if self.rounds == 1:
                 playing_monkey.common_divider = self.common_divider
             for target_monkey, thrown_item in playing_monkey.play():
                 self.monkeys[target_monkey].receive_item(thrown_item)
-
-        # print(f'Round {self.rounds}: {time.perf_counter() - start_time}')
 
     def play(self, rounds: int = 20) -> None:
         for _ in range(rounds):

@@ -2,6 +2,9 @@ from functools import cache
 from utils import get_data
 
 
+# https://adventofcode.com/2022/day/16
+
+
 class Dungeon:
 
     def __init__(self, input: str) -> None:
@@ -10,7 +13,7 @@ class Dungeon:
         self.knots = {}
         self.START = 'AA'
 
-    def parse_data(self):
+    def parse_data(self) -> None:
         for line in get_data(self.input):
             cols = line.split()
             valve = cols[1]

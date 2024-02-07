@@ -1,6 +1,6 @@
 from copy import deepcopy
 from typing import Tuple
-from utils import get_data, save_picture, create_gif
+from my_utils import get_data, save_picture, create_gif
 
 
 # https://adventofcode.com/2022/day/14

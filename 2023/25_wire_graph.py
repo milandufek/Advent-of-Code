@@ -1,5 +1,5 @@
 import networkx as nx
-from utils import get_data
+from my_utils import get_data
 
 
 # https://adventofcode.com/2023/day/25

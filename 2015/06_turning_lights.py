@@ -1,4 +1,4 @@
-from utils import get_data
+from my_utils import get_data
 
 
 def parse_line(line: str) -> tuple:

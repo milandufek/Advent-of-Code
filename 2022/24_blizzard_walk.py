@@ -1,6 +1,6 @@
 from collections import deque
 from functools import cache
-from utils import get_data
+from my_utils import get_data
 
 
 # https://adventofcode.com/2022/day/24

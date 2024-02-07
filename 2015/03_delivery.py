@@ -1,4 +1,4 @@
-from utils import get_data
+from my_utils import get_data
 
 
 directions = get_data('inputs/03.in')

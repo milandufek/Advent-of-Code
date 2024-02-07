@@ -1,6 +1,6 @@
 import re
 from copy import deepcopy
-from utils import get_data
+from my_utils import get_data
 
 
 def go(data: list, sec: int) -> None:

@@ -1,5 +1,5 @@
 from itertools import permutations
-from utils import get_data
+from my_utils import get_data
 
 
 def parse_data(file: str) -> list:

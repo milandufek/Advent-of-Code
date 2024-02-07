@@ -22,7 +22,7 @@ fi
 
 if [ ! -f $FILE_CODE ]; then
     cat > $FILE_CODE <<EOF
-from utils import get_data
+from my_utils import get_data
 
 
 

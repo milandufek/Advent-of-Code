@@ -1,5 +1,5 @@
 import re
-from utils import get_data
+from my_utils import get_data
 
 
 def check_nice_1(s: str) -> int:

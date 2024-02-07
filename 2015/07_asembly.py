@@ -1,5 +1,5 @@
 import sympy
-from utils import get_data
+from my_utils import get_data
 
 
 DATA = get_data('inputs/07.in')

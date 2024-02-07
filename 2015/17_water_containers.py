@@ -1,6 +1,6 @@
 from collections import Counter
 from itertools import combinations
-from utils import get_data
+from my_utils import get_data
 
 
 LITERS = 150

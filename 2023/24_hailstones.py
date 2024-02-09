@@ -54,6 +54,6 @@ def solve(_input: str) -> int:
 
 if __name__ == '__main__':
     example = 'inputs/24_example.in'
-    data = 'inputs/24.in'
+    data_file = 'inputs/24.in'
     # print(f'Example #1: {solve(example)}')
-    print(f'Score #1: {solve(data)}')
+    print(f'Score #1: {solve(data_file)}')

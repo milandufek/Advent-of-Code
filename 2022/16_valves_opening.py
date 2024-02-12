@@ -28,15 +28,15 @@ class Dungeon:
                 return self.dfs(self.START, 26, opened)
             return 0
 
-        score = max([self.dfs(n, time - 1, opened, wait) for n in self.knots[pos]])
+        score = max(self.dfs(n, time - 1, opened, wait) for n in self.knots[pos])
 
         if self.flows[pos] > 0 and pos not in opened:
-            next = set(opened)
-            next.add(pos)
-            next = frozenset(next)  # due to cache
+            next_valve = set(opened)
+            next_valve.add(pos)
+            next_valve = frozenset(next_valve)  # due to cache
             score = max(
                 score,
-                (time - 1) * self.flows[pos] + self.dfs(pos, time - 1, next, wait),
+                (time - 1) * self.flows[pos] + self.dfs(pos, time - 1, next_valve, wait),
             )
 
         return score

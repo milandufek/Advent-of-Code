@@ -8,7 +8,7 @@ fi
 source ~/VirtualEnvs/AoC/bin/activate
 
 DAY="$1"
-YEAR="$(date +%Y)"
+YEAR="2023"
 URL_INPUT="https://adventofcode.com/${YEAR}/day/${DAY}/input"
 
 [ ${#DAY} -eq 1 ] && F_DAY="0${DAY}" || F_DAY="${DAY}"
@@ -18,7 +18,7 @@ FILE_CODE="${F_DAY}_.py"
 
 
 [ ! -d "inputs" ] && mkdir -p inputs
-[ ! -f $FILE_INPUT ] && curl -s --cookie "session=$(cat .aoc_session)" $URL_INPUT >$FILE_INPUT
+[ ! -f $FILE_INPUT ] && curl -s --cookie "session=$(cat ../.aoc_session)" $URL_INPUT >$FILE_INPUT
 [ ! -f $FILE_INPUT_EXAMPLE ] && >$FILE_INPUT_EXAMPLE
 
 if [ ! -f $FILE_CODE ]; then

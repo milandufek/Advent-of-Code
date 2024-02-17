@@ -25,17 +25,18 @@ class HeilStone():
 def solve(_input: str) -> int:
     total = 0
 
-    min = 200_000_000_000_000
-    max = 400_000_000_000_000
+    _min = 200_000_000_000_000
+    _max = 400_000_000_000_000
 
     data = get_data(_input)
 
-    hailstones = [HeilStone(*map(int, line.replace('@', ',').split(','))) for line in data]
+    hailstones = [HeilStone(*map(int, line.replace('@', ',').split(',')))
+                  for line in data]
 
     for i, first in enumerate(hailstones):
-        for next in hailstones[:i]:
+        for _next in hailstones[:i]:
             a1, b1, c1 = first.a, first.b, first.c
-            a2, b2, c2 = next.a, next.b, next.c
+            a2, b2, c2 = _next.a, _next.b, _next.c
 
             if a1 * b2 == b1 * a2:
                 continue
@@ -45,8 +46,9 @@ def solve(_input: str) -> int:
             # print('Cross:', x, y)
 
             # if 7 <= x <= 27 and 7 <= y <= 27:  # example range
-            if min <= x <= max and min <= y <= max:
-                if all((x - hs.px) * hs.vx >= 0 and (y - hs.py) * hs.vy >= 0 for hs in (first, next)):
+            if _min <= x <= _max and _min <= y <= _max:
+                if all((x - hs.px) * hs.vx >= 0 and (y - hs.py) * hs.vy >= 0
+                       for hs in (first, _next)):
                     total += 1
 
     return total

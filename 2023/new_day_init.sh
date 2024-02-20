@@ -34,11 +34,11 @@ from my_utils import get_data
 
 if __name__ == '__main__':
     example = get_data('inputs/${F_DAY}_example.in')
-    #data = get_data('inputs/${F_DAY}.in')
+    #data_input = get_data('inputs/${F_DAY}.in')
     print(f'Example #1: {solve_1(example)}')
-    #print(f'Score #1: {solve_1(data)}')
+    #print(f'Score #1: {solve_1(data_input)}')
     #print(f'Example #2: {solve_2(example)}')
-    #print(f'Score #2: {solve_2(data)}')
+    #print(f'Score #2: {solve_2(data_input)}')
 
 EOF
 

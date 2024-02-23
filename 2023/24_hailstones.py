@@ -22,31 +22,32 @@ class HeilStone():
         return f'HeilStone({self.px}, {self.py}, {self.pz}, {self.vx}, {self.vy}, {self.vz})'
 
 
-def solve(_input: str) -> int:
+def intersection(hs1: HeilStone, hs2: HeilStone) -> tuple[int, int]:
+    a1, b1, c1 = hs1.a, hs1.b, hs1.c
+    a2, b2, c2 = hs2.a, hs2.b, hs2.c
+
+    if a1 * b2 == b1 * a2:
+        return 0, 0
+
+    # https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+    x = (c1 * b2 - c2 * b1) / (a1 * b2 - a2 * b1)
+    y = (c2 * a1 - c1 * a2) / (a1 * b2 - a2 * b1)
+    # print(f'Cross:  {x = :>20}  {y = :>20}')
+
+    return x, y
+
+
+def solve(_input: str, imin: int, imax: int) -> int:
     total = 0
-
-    _min = 200_000_000_000_000
-    _max = 400_000_000_000_000
-
     data = get_data(_input)
-
     hailstones = [HeilStone(*map(int, line.replace('@', ',').split(',')))
                   for line in data]
 
     for i, first in enumerate(hailstones):
         for _next in hailstones[:i]:
-            a1, b1, c1 = first.a, first.b, first.c
-            a2, b2, c2 = _next.a, _next.b, _next.c
+            x, y = intersection(first, _next)
 
-            if a1 * b2 == b1 * a2:
-                continue
-
-            x = (c1 * b2 - c2 * b1) / (a1 * b2 - a2 * b1)
-            y = (c2 * a1 - c1 * a2) / (a1 * b2 - a2 * b1)
-            # print('Cross:', x, y)
-
-            # if 7 <= x <= 27 and 7 <= y <= 27:  # example range
-            if _min <= x <= _max and _min <= y <= _max:
+            if imin <= x <= imax and imin <= y <= imax:
                 if all((x - hs.px) * hs.vx >= 0 and (y - hs.py) * hs.vy >= 0
                        for hs in (first, _next)):
                     total += 1
@@ -56,6 +57,9 @@ def solve(_input: str) -> int:
 
 if __name__ == '__main__':
     example = 'inputs/24_example.in'
+    print(f'Example #1: {solve(example, 7, 27)}')
+
     data_file = 'inputs/24.in'
-    # print(f'Example #1: {solve(example)}')
-    print(f'Score #1: {solve(data_file)}')
+    imin = 200_000_000_000_000
+    imax = 400_000_000_000_000
+    print(f'Score #1: {solve(data_file, imin, imax)}')

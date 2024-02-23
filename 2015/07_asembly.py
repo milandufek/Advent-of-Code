@@ -2,6 +2,10 @@ import sympy
 from my_utils import get_data
 
 
+# TODO
+# https://adventofcode.com/2015/day/7
+
+
 DATA = get_data('inputs/07.in')
 vars = {}
 

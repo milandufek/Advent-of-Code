@@ -1,3 +1,6 @@
+from itertools import pairwise
+
+
 # https://adventofcode.com/2015/day/11
 
 
@@ -15,12 +18,12 @@ def has_invalid_chars(password: str) -> bool:
 
 
 def has_two_pairs(password: str) -> bool:
-    nums = list(map(ord, password))
+    num = list(map(ord, password))
     pairs = set()
 
-    for nums, next_nums in zip(nums, nums[1:]):
-        if nums == next_nums:
-            pairs.add(nums)
+    for num, next_num in pairwise(num):
+        if num == next_num:
+            pairs.add(num)
 
     return len(pairs) >= 2
 

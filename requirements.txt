@@ -3,4 +3,5 @@ matplotlib
 networkx
 numpy
 Pillow
+pytest
 sympy

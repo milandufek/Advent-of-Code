@@ -5,7 +5,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-source ~/VirtualEnvs/AoC/bin/activate
+source ~/VirtualEnvs/Advent-of-Code/bin/activate
 
 DAY="$1"
 YEAR="2015"

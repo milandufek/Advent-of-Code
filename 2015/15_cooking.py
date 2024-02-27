@@ -1,75 +1,71 @@
 import re
-from functools import reduce
+import math
+from typing import Generator
 
 
-# ingredients = {}
-ingredients = []
-re_numbers = re.compile(r'-?\d+')
-re_properties = re.compile(r'[A-Za-z]+')
-
-with open('inputs/15.in') as f:
-    # Frosting: capacity 4, durability -2, flavor 0, texture 0, calories 5
-
-    for line in f.readlines():
-        # properties = re_properties.findall(line)
-        # name = properties.pop(0)
-        values = list(map(int, re_numbers.findall(line)))
-        # ingredients[name] = {k: v for k, v in zip(properties, values)}
-        ingredients.append(values)
+# https://adventofcode.com/2015/day/15
 
 
-def get_all_1():
-    score = []
-    for i in range(101):
-        for j in range(101 - i):
-            for k in range(101 - i - j):
-                l = 100 - i - j - k
-                score.append(get_score((i, j, k, l)))
+def parse_ingredients(input_file: str) -> list[tuple[int]]:
+    re_numbers = re.compile(r'-?\d+')  # Match any number including negative ones.
+    with open(input_file) as f:
+        ingredients = [tuple(map(int, re_numbers.findall(line)))
+                       for line in f.readlines()]
 
-    print('#1:', max(score))
+    return ingredients
 
 
-def get_score(amount: tuple) -> int:
-    total = 1
-    for ing, am in list(zip(ingredients.values(), amount)):
-        per_ing = 0
-        print(ing, am)
-        for val in list(ing.values())[:-1]:
-            if val < 0:
-                val = 0
-
-            per_ing += val * am
-
-        total *= per_ing
-
-    return total
+def recipe_combinations(total: int, pieces: int) -> Generator[tuple[int], None, None]:
+    if pieces == 0:
+        yield ()
+    elif pieces == 1:
+        yield (total,)
+    else:
+        for i in range(total + 1):
+            for combination in recipe_combinations(total - i, pieces - 1):
+                yield (i,) + combination
 
 
-def mixtures(n, total):
-    start = total if n == 1 else 0
-
-    for i in range(start, total + 1):
-        left = total - i
-        if n - 1:
-            for y in mixtures(n - 1, left):
-                yield [i] + y
-        else:
-            yield [i]
+def group_ingredients_by_item(items: list[tuple[int]]) -> tuple[tuple[int]]:
+    return tuple(zip(*items))
 
 
-def score(recipe, max_calories=0):
-    proportions = [map(lambda x: x * mul, props) for props, mul in zip(ingredients, recipe)]
-    dough = reduce(lambda a, b: list(map(sum, zip(a, b))), proportions)
-    calories = dough.pop()
-    result = reduce(lambda a, b: a*b, map(lambda x: max(x, 0), dough))
+def get_score(ingredients: tuple[int], recipe: tuple[int], calories: int = None) -> int:
+    total = []
+    ingredients = group_ingredients_by_item(ingredients)
 
-    return 0 if max_calories and calories > max_calories else result
+    for item in ingredients:
+        sum_per_item = sum(value * amount for value, amount in zip(item, recipe))
+        total.append(max(0, sum_per_item))
 
+    current_calories = total.pop()
+
+    if calories and calories != current_calories:
+        return 0
+
+    return math.prod(total)
+
+
+def get_max_score(ingredients: list[tuple[int]], calories: int = None) -> int:
+    max_score = max(get_score(ingredients, recipe, calories)
+                    for recipe in recipe_combinations(100, 4))
+
+    return max_score
+
+
+def test_get_max_score():
+    _example_ingredients = parse_ingredients('inputs/15_example.in')
+    _input_ingredients = parse_ingredients('inputs/15.in')
+    calories = 500
+    assert get_max_score(_example_ingredients) == 62842880
+    assert get_max_score(_input_ingredients) == 18965440
+    assert get_max_score(_example_ingredients, calories) == 57600000
+    assert get_max_score(_input_ingredients, calories) == 15862900
 
 
 if __name__ == '__main__':
-    print(ingredients)
-    recipes = mixtures(len(ingredients), 100)
-    print(max(map(score, recipes)))
-
-# print max(map(lambda r: score(r, 500), recipes))
+    _input_file = parse_ingredients('inputs/15.in')
+    part_1 = get_max_score(_input_file)
+    print(f'Score #1: {part_1}')
+    part_2 = get_max_score(_input_file, 500)
+    print(f'Score #2: {part_2}')

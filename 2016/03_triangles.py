@@ -20,9 +20,7 @@ def solve_1(sides: list[tuple[int, int, int]]):
 def solve_2(numbers: list[tuple[int, int, int]]) -> int:
     sides = []
     for batch in batched(numbers, 3):
-        for i in range(3):
-            first, second, third = batch
-            sides.append((first[i], second[i], third[i]))
+        sides.extend(zip(*batch))
 
     return sum(1 for a, b, c in sides if is_triangle(a, b, c))
 

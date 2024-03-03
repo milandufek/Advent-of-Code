@@ -53,7 +53,6 @@ def decompress(phrase: str, recurse: bool = False) -> int:
 
 if __name__ == '__main__':
     data_input = get_data('inputs/09.in')[0]
-    example_input = 'X(8x2)(3x3)ABCY'
     print(f'Part 1: {decompress_1(data_input)}')
     print(f'Part 1: {decompress(data_input)}')
     print(f'Part 2: {decompress(data_input, True)}')

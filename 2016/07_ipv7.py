@@ -1,4 +1,5 @@
 import re
+from itertools import chain
 from my_utils import get_data
 
 
@@ -68,10 +69,10 @@ def solve_2(data: list[str]) -> int:
         inside_items = re_inside.findall(line)
         outside_items = [x for x in all_items if x not in inside_items]
 
-        inside_valid = [get_aba_sequences(i) for i in inside_items]
-        inside_valid = [item for subset in inside_valid for item in subset]
-        outside_valid = [get_aba_sequences(o) for o in outside_items]
-        outside_valid = [item for subset in outside_valid for item in subset]
+        inside_valid = list(chain.from_iterable(
+            [get_aba_sequences(i) for i in inside_items]))
+        outside_valid = list(chain.from_iterable(
+            [get_aba_sequences(o) for o in outside_items]))
 
         for i in inside_valid:
             ia, ib, _ = i

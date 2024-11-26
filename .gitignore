@@ -2,11 +2,12 @@ __pycache__
 .vscode
 .aoc_session
 
+node_modules
+
 images/frames
 
 test.py
 notes.md
 
-2018/**
 2019/**
 2020/**

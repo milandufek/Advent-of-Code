@@ -9,4 +9,7 @@ jspm_packages/
 images/frames
 
 test.py
+test.ts
+test.js
+test.txt
 notes.md

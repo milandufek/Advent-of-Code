@@ -23,23 +23,17 @@ FILE_CODE="d${DAY}p1.ts"
 
 if [ ! -f $FILE_CODE ]; then
     cat > $FILE_CODE <<EOF
-import { readFileSync } from 'fs';
+import { readFile, determineInputFile } from './utils';
 
 // https://adventofcode.com/${YEAR}/day/${DAY}
 
-function readFile(path: string): string[] {
-    const data: string = readFileSync(path, 'utf-8');
-    return data.trim().split('\n').map(s => s.trim());
-}
-
-function solve(input: string[]): void {
+function solve(lines: string[]): void {
     lines.forEach(line => {
         console.log(line);
     });
 }
 
-solve(readFile('inputs/test.txt'));
-// solve(readFile('inputs/1.txt'));
+solve(readFile(determineInputFile()));
 
 EOF
 

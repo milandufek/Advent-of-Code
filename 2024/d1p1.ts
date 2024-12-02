@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 
 // https://adventofcode.com/2024/day/1
 
-function readFile(path: string): string[] {
+function readFileLines(path: string): string[] {
     const data: string = readFileSync(path, 'utf-8');
     return data.trim().split('\n').map(s => s.trim());
 }
@@ -27,4 +27,4 @@ function solve(lines: string[]): void {
     console.log('Sum:', sum);
 }
 
-solve(readFile('inputs/1.txt'));
+solve(readFileLines('inputs/1.txt'));

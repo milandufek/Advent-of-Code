@@ -1,4 +1,4 @@
-import { readFile, determineInputFile, pairwise } from './utils';
+import { readFileLines, determineInputFile, pairwise } from './utils';
 
 // https://adventofcode.com/2024/day/2
 
@@ -41,4 +41,4 @@ function solve(lines: string[]): void {
     console.log('Count:', count);
 }
 
-solve(readFile(determineInputFile()));
+solve(readFileLines(determineInputFile()));

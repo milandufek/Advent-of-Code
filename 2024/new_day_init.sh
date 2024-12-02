@@ -23,7 +23,7 @@ FILE_CODE="d${DAY}p1.ts"
 
 if [ ! -f $FILE_CODE ]; then
     cat > $FILE_CODE <<EOF
-import { readFile, determineInputFile } from './utils';
+import { readFileLines, determineInputFile } from './utils';
 
 // https://adventofcode.com/${YEAR}/day/${DAY}
 
@@ -33,7 +33,7 @@ function solve(lines: string[]): void {
     });
 }
 
-solve(readFile(determineInputFile()));
+solve(readFileLines(determineInputFile()));
 
 EOF
 

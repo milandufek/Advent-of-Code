@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-export function readFile(path: string): string[] {
+export function readFileLines(path: string): string[] {
     const data: string = readFileSync(path, 'utf-8');
     return data.trim().split('\n').map(s => s.trim());
 }

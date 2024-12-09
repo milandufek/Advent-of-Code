@@ -2,21 +2,19 @@ import { readFileLines, determineInputFile } from './utils';
 
 // https://adventofcode.com/2024/day/9
 
-function loadBlocks(diskPartition: string): string[] {
-    let diskMap: string = diskPartition;
-    let blocks: string[] = [];
+function loadBlocks(diskPartition: string): number[] {
+    let diskMap: number[] = diskPartition.split('').map(Number);
+    let blocks: number[] = [];
     let id: number = 0;
-    let count: number;
-    let value: string;
+    let value: number;
     for (let i = 0; i < diskMap.length; i++) {
-        count = Number(diskMap[i]);
         if (i % 2 === 0) {
-            value = String(id);
+            value = id;
             id++;
         } else {
-            value = '.';
+            value = -1;
         }
-        for (let j = 0; j < count; j++) {
+        for (let j = 0; j < diskMap[i]; j++) {
             blocks.push(value);
         }
     }
@@ -24,19 +22,19 @@ function loadBlocks(diskPartition: string): string[] {
 }
 
 function solve(lines: string[]): void {
-    const blocks: string[] = loadBlocks(lines[0]);
-    let lastBlock: string;
-    while (blocks.includes('.')) {
-        lastBlock = blocks.pop() || '0';
-        if (lastBlock === '.') {
+    const blocks: number[] = loadBlocks(lines[0]);
+    let lastBlock: number;
+    while (blocks.includes(-1)) {
+        lastBlock = blocks.pop() || -1;
+        if (lastBlock === -1) {
             continue;
         }
-        blocks[blocks.indexOf('.')] = lastBlock;
+        blocks[blocks.indexOf(-1)] = lastBlock;
     }
 
     let checkSum: number = 0;
     for (let i = 0; i < blocks.length; i++) {
-        checkSum += i * Number(blocks[i]);
+        checkSum += i * blocks[i];
     }
     console.log(checkSum);
 }

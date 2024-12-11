@@ -6,6 +6,8 @@ node_modules/
 jspm_packages/
 .npm
 
+*/inputs/*.in
+*/inputs/*.txt
 images/frames
 
 test.py

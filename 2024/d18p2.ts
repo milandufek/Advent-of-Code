@@ -35,18 +35,20 @@ function checkPaths(lastBlock: number): boolean {
     return false;
 }
 
-const lines: string[] = readFileLines(determineInputFile());
-const blocks: number[][] = lines.map(line => line.split(',').map(Number));
-
-let low = 1024;
-let high = lines.length - 1;
-while (low < high) {
-    let mid = Math.floor((low + high) / 2);
-    if (checkPaths(mid + 1)) {
-        low = mid + 1;
-        continue;
+function solve(): void {
+    let low = 1024;
+    let high = lines.length - 1;
+    while (low < high) {
+        let mid = Math.floor((low + high) / 2);
+        if (checkPaths(mid + 1)) {
+            low = mid + 1;
+            continue;
+        }
+        high = mid;
     }
-    high = mid;
+    console.log('Last byte:', blocks[low].join(','));
 }
 
-console.log('Last byte:', blocks[low].join(','));
+const lines: string[] = readFileLines(determineInputFile());
+const blocks: number[][] = lines.map(line => line.split(',').map(Number));
+solve();

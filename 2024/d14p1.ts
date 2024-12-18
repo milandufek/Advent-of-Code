@@ -19,7 +19,7 @@ function getRobotPosition(robotPosition: number[]): number[] {
 function countRobots(robots: number[][]): number {
     const midX: number = Math.floor(maxX / 2);
     const midY: number = Math.floor(maxY / 2);
-    const quadrants: number[] = [0, 0, 0, 0];
+    const quadrants: number[] = Array(4).fill(0);
     for (let robot of robots) {
         let [rx, ry] = robot;
         if (rx < midX && ry < midY) {           // Top left

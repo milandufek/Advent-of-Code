@@ -19,14 +19,20 @@ function isStuck(r: number, c: number): boolean {
     const seen = new Set<string>();
 
     while (true) {
-        seen.add(`${r},${c},${dr},${dc}`);
-        if (r + dr < 0 || r + dr >= rows || c + dc < 0 || c + dc >= cols) return false;
-        if (grid[r + dr][c + dc] === '#') [dr, dc] = [dc, -dr];
-        else {
-            r += dr;
-            c += dc;
+        const key = `${r},${c},${dr},${dc}`;
+        if (seen.has(key)) return true;
+        seen.add(key);
+
+        const nr = r + dr;
+        const nc = c + dc;
+
+        if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) return false;
+        if (grid[nr][nc] === '#') {
+            [dr, dc] = [dc, -dr];
+        } else {
+            r = nr;
+            c = nc;
         }
-        if (seen.has(`${r},${c},${dr},${dc}`)) return true;
     }
 }
 

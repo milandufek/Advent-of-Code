@@ -14,8 +14,10 @@ function getStart(grid: string[][]): number[] {
     return [-1, -1];
 }
 
-function printGrid(grid: string[][]): void {
-    for (let row of grid) console.log(row.join(''));
+function printGrids(grid: string[][], grid2: string[][]): void {
+    for (let r = 0; r < grid.length; r++) {
+        console.log(grid[r].join('') + '  ->  ' + (grid2[r] ? grid2[r].join('') : ''));
+    }
 }
 
 function getScore(grid: string[][]): number {
@@ -32,8 +34,9 @@ function getScore(grid: string[][]): number {
 
 function solve(): void {
     const grid: string[][] = rawGrid.split('\n').map(row => row.split(''));
+    const originGrid: string[][] = grid.map(row => [...row]);
     let position: number[] = getStart(grid);
-    let movesMap: { [key: string]: number[] } = {
+    let directionMap: { [key: string]: number[] } = {
         '^': [-1, 0],
         'v': [1, 0],
         '>': [0, 1],
@@ -41,11 +44,10 @@ function solve(): void {
     };
     for (let move of moves) {
         let [r, c] = position;
-        let [dr, dc] = movesMap[move];
+        let [dr, dc] = directionMap[move];
         let nr = r + dr;
         let nc = c + dc;
         if (nr < 0 || nr >= grid.length || nc < 0 || nc >= grid[0].length) continue;
-        if (grid[nr][nc] === '#') continue;
         if (grid[nr][nc] === '.') {
             grid[nr][nc] = '@';
             grid[r][c] = '.';
@@ -67,7 +69,7 @@ function solve(): void {
             }
         }
     }
-    // printGrid(grid);
+    // printGrids(originGrid, grid);
     console.log('Score:', getScore(grid));
 }
 

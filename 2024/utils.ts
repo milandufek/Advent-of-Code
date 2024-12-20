@@ -34,3 +34,30 @@ export function pairwise<T>(arr: T[]): [T, T][] {
     }
     return pairs;
 }
+
+function bfs(lines: string[]): number {
+    const grid: string[][] = lines.map(line => line.split(''));
+    const rows = grid.length;
+    const cols = grid[0].length;
+    const wall = '#';
+    const start = [0, 0];
+    const end = [rows - 1, cols - 1];
+    const directions: number[][] = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    let queue: number[][] = [[0, start[0], start[1]]];  // steps, row, col
+    let visited = new Set<string>();
+    visited.add(`${start[0]}:${start[1]}`);
+    while (queue.length > 0) {
+        let [steps, r, c] = queue.shift()!;
+        if (r === end[0] && c === end[1]) return steps;
+        for (const [dr, dc] of directions) {
+            let nr = r + dr;
+            let nc = c + dc;
+            if (nr < 0 || nr >= grid.length || nc < 0 || nc >= grid[0].length) continue;
+            if (visited.has(`${nr}:${nc}`)) continue;
+            if (grid[nr][nc] === wall) continue;
+            visited.add(`${nr}:${nc}`);
+            queue.push([steps + 1, nr, nc]);
+        }
+    }
+    return -1;
+}

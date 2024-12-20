@@ -1,7 +1,9 @@
+beautifulsoup4
 imageio
 matplotlib
 networkx
 numpy
 Pillow
 pytest
+requests
 sympy

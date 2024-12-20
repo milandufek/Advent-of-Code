@@ -1,6 +1,7 @@
 __pycache__
 .vscode
 .aoc_session
+.DS_Store
 
 node_modules/
 jspm_packages/

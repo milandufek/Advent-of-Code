@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $(basename "$PWD") != 20* ]]; then
+    echo "The current directory does not start with '20'."
+    exit 1
+fi
+
 if [ -z "$1" ]; then
     echo "Usage: $0 <day>"
     exit 1

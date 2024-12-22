@@ -53,9 +53,10 @@ function bfs(lines: string[]): number {
             let nr = r + dr;
             let nc = c + dc;
             if (nr < 0 || nr >= grid.length || nc < 0 || nc >= grid[0].length) continue;
-            if (visited.has(`${nr}:${nc}`)) continue;
+            const cacheKey = `${nr}:${nc}`;
+            if (visited.has(cacheKey)) continue;
             if (grid[nr][nc] === wall) continue;
-            visited.add(`${nr}:${nc}`);
+            visited.add(cacheKey);
             queue.push([steps + 1, nr, nc]);
         }
     }

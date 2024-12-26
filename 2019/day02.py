@@ -43,7 +43,7 @@ def solve_2(code: list[int], target: int = 19690720) -> int:
 
 
 if __name__ == '__main__':
-    data_input = parse_input('inputs/02.in')
-    print(f'Part 1: {solve_1(data_input)}')
-    data_input = parse_input('inputs/02.in')
-    print(f'Part 2: {solve_2(data_input)}')
+    data_input = parse_input('inputs/02.txt')
+    print(f'#1: {solve_1(data_input)}')
+    data_input = parse_input('inputs/02.txt')
+    print(f'#2: {solve_2(data_input)}')

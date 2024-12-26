@@ -12,9 +12,9 @@ YEAR="2019"
 URL_INPUT="https://adventofcode.com/${YEAR}/day/${DAY}/input"
 
 [ ${#DAY} -eq 1 ] && F_DAY="0${DAY}" || F_DAY="${DAY}"
-FILE_INPUT="inputs/${F_DAY}.in"
-FILE_INPUT_EXAMPLE="inputs/${F_DAY}_example.in"
-FILE_CODE="${F_DAY}_.py"
+FILE_INPUT="inputs/${F_DAY}.txt"
+FILE_INPUT_EXAMPLE="inputs/test.txt"
+FILE_CODE="day${F_DAY}.py"
 
 
 [ ! -d "inputs" ] && mkdir -p inputs
@@ -29,13 +29,14 @@ from my_utils import get_data
 # https://adventofcode.com/${YEAR}/day/${DAY}
 
 
-
+def solve_1(data):
+    pass
 
 
 if __name__ == '__main__':
-    data_input = get_data('inputs/${F_DAY}.in')
-    #print(f'Part 1: {solve_1(data_input)}')
-    #print(f'Part 2: {solve_2(data_input)}')
+    data_input = get_data('inputs/${F_DAY}.txt')
+    print(f'#1: {solve_1(data_input)}')
+    #print(f'#2: {solve_2(data_input)}')
 
 EOF
 

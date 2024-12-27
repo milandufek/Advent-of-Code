@@ -4,7 +4,7 @@ x = [
     '2-9 c: ccccccccc',
 ]
 
-with open('inputs/02.in') as f:
+with open('inputs/02.txt') as f:
     x = f.readlines()
 
 valid = 0

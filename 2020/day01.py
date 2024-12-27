@@ -14,7 +14,7 @@ numbers = [
 
 SUM = 2020
 
-with open('inputs/01.in') as f:
+with open('inputs/01.txt') as f:
     numbers = list(map(int, f.readlines()))
 
 score_1 = reduce(mul, *[x for x in combinations(numbers, 2) if sum(x) == SUM])

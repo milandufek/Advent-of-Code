@@ -34,7 +34,8 @@ def solve_1(data):
 
 
 if __name__ == '__main__':
-    data_input = get_data('inputs/${F_DAY}.txt')
+    data_input = get_data('inputs/test.txt')
+    #data_input = get_data('inputs/${F_DAY}.txt')
     print(f'#1: {solve_1(data_input)}')
     #print(f'#2: {solve_2(data_input)}')
 

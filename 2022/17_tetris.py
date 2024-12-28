@@ -10,38 +10,38 @@ class Tetris:
     def __init__(self, input_file: str) -> None:
         self.input_file = input_file
         self.SHAPES = [
-            {0, 1, 2, 3},  # straight
-            {1, 1j, 1 + 1j, 2 + 1j, 1 + 2j},  # cross
-            {0, 1, 2, 2 + 1j, 2 + 2j},  # reversed L
-            {0, 1j, 2j, 3j},  # I
-            {0, 1, 1j, 1 + 1j},  # box
+            {(0, 0), (1, 0), (2, 0), (3, 0)},  # straight
+            {(1, 0), (0, 1), (1, 1), (2, 1), (1, 2)},  # cross
+            {(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)},  # reversed L
+            {(0, 0), (0, 1), (0, 2), (0, 3)},  # I
+            {(0, 0), (1, 0), (0, 1), (1, 1)},  # box
         ]
         self.rocks = cycle(self.SHAPES)
         self.jets = cycle(
             [-1 if x == '<' else 1 for x in get_data(self.input_file)[0]])
-        self.solid = {x - 1j for x in range(7)}
+        self.solid = {(x, -1) for x in range(7)}
         self.height = 0
 
     def get_rock(self) -> set:
         rock = next(self.rocks)
-        return {x + 2 + ((self.height + 3) * 1j) for x in rock}
+        return {(x + 2, y + self.height + 3) for x, y in rock}
 
     def run(self, max_rocks: int = 2022) -> None:
         rested = 0
         rock = self.get_rock()
 
         for jet in self.jets:
-            moved = {x + jet for x in rock}
+            moved = {(x + jet, y) for x, y in rock}
 
-            if all(0 <= x.real < 7 for x in moved) and not moved & self.solid:
+            if all(0 <= x < 7 for x, y in moved) and not moved & self.solid:
                 rock = moved
 
-            moved = {x - 1j for x in rock}
+            moved = {(x, y - 1) for x, y in rock}
 
             if moved & self.solid:
                 self.solid |= rock
                 rested += 1
-                self.height = max(x.imag for x in self.solid) + 1
+                self.height = max(y for x, y in self.solid) + 1
 
                 if rested == max_rocks:
                     break
@@ -50,7 +50,7 @@ class Tetris:
             else:
                 rock = moved
 
-        print(f'Rested rocks ({rested}) height: {int(self.height)}')
+        print(f'Rested rocks ({rested}) height: {self.height}')
 
 
 if __name__ =='__main__':

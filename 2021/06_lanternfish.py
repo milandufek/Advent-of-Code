@@ -1,5 +1,8 @@
 from collections import Counter, deque
 
+
+# https://adventofcode.com/2021/day/4
+
 # Initial state: 3,4,3,1,2
 # After  1 day:  2,3,2,0,1
 # After  2 days: 1,2,1,6,0,8

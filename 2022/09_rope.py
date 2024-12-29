@@ -1,7 +1,7 @@
 from my_utils import get_data
 
 
-# https://adventofcode.com/2022/day/
+# https://adventofcode.com/2022/day/9
 
 def move(position: list, direction: str) -> list:
     match direction:

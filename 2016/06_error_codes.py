@@ -1,6 +1,9 @@
 from collections import Counter
 
 
+# https://adventofcode.com/2016/day/5
+
+
 with open('inputs/06.in') as f:
     data = f.read().splitlines()
 

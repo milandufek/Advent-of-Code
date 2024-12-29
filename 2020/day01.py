@@ -3,6 +3,9 @@ from itertools import combinations
 from operator import mul
 
 
+# https://adventofcode.com/2020/day/1
+
+
 numbers = [
     1721,
     979,

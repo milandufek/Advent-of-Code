@@ -19,7 +19,7 @@ URL_INPUT="https://adventofcode.com/${YEAR}/day/${DAY}/input"
 [ ${#DAY} -eq 1 ] && F_DAY="0${DAY}" || F_DAY="${DAY}"
 FILE_INPUT="inputs/${F_DAY}.in"
 FILE_INPUT_EXAMPLE="inputs/${F_DAY}_example.in"
-FILE_CODE="${F_DAY}_.py"
+FILE_CODE="${F_DAY}.py"
 
 
 [ ! -d "inputs" ] && mkdir -p inputs

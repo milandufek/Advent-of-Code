@@ -28,10 +28,13 @@ FILE_CODE="${F_DAY}.py"
 
 if [ ! -f $FILE_CODE ]; then
     cat > $FILE_CODE <<EOF
+from my_utils import get_data
+
+
 # https://adventofcode.com/${YEAR}/day/${DAY}
 
 
-def solve_1():
+def solve_1(data: list[str]) -> int:
     pass
 
 
